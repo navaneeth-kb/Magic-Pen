@@ -53,6 +53,11 @@
       border-radius: 8px;
       border-left: 3px solid var(--accent);
     }
+
+    .msg-box{
+      position: relative;
+      right:13px;
+    }
     
     .timer {
       color: var(--accent);
@@ -119,7 +124,7 @@
   <div class="container">
     <div class="cyber-border"></div>
     <h2>Secret Message 🔒</h2>
-    <p>{{ message }}</p>
+    <p class="msg-box">{{ message }}</p>
     <div class="timer" id="countdown">Expires in 5:00</div>
   </div>
 

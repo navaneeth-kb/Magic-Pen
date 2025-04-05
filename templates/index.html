@@ -37,6 +37,7 @@
       box-shadow: 0 0 30px rgba(110, 0, 255, 0.3),
                   0 0 60px rgba(0, 209, 255, 0.1);
       text-align: center;
+      align-items: center;
       max-width: 90%;
       width: 450px;
       position: relative;
@@ -77,6 +78,8 @@
       background: rgba(20, 20, 40, 0.7);
       color: var(--light);
       transition: all 0.3s ease;
+      position: relative;
+      right:13px;
     }
     
     textarea:focus {
@@ -173,7 +176,6 @@
   </div>
 
   <script>
-    // Create floating particles
     const particlesContainer = document.getElementById('particles');
     for (let i = 0; i < 30; i++) {
       const particle = document.createElement('div');
