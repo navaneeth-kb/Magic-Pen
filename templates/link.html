@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Link</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #6e00ff;
+      --secondary: #00d1ff;
+      --dark: #0a0a14;
+      --light: #f0f0ff;
+      --accent: #ff00aa;
+    }
+    
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(135deg, var(--dark), #1a1a2e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: var(--light);
+    }
+    
+    .container {
+      background: rgba(10, 10, 20, 0.8);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(110, 0, 255, 0.3);
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(110, 0, 255, 0.3);
+    }
+    
+    h3 {
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      color: var(--secondary);
+      text-shadow: 0 0 10px rgba(0, 209, 255, 0.3);
+    }
+    
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 1.5rem;
+      background: rgba(20, 20, 40, 0.7);
+      border: 1px solid rgba(110, 0, 255, 0.5);
+      border-radius: 8px;
+      color: var(--light);
+      font-size: 1rem;
+      text-align: center;
+    }
+    
+    input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(255, 0, 170, 0.3);
+    }
+    
+    button {
+      padding: 12px 30px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(110, 0, 255, 0.4);
+    }
+    
+    button::after {
+      content: '✓ Copied!';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, #00ff88, #00cc66);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    button.copied::after {
+      opacity: 1;
+    }
+    
+    .success-message {
+      margin-top: 1rem;
+      color: #00ff88;
+      font-weight: bold;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .visible {
+      opacity: 1;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <h3>Your magic message link:</h3>
+    <input type="text" value="{{ link }}" id="linkInput" readonly>
+    <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    <div class="success-message" id="successMessage">Link copied successfully!</div>
+  </div>
+
+  <script>
+    function copyToClipboard() {
+      const input = document.getElementById("linkInput");
+      const button = document.querySelector("button");
+      const successMessage = document.getElementById("successMessage");
+      
+      input.select();
+      document.execCommand("copy");
+      
+      button.classList.add("copied");
+      successMessage.classList.add("visible");
+      
+      setTimeout(() => {
+        button.classList.remove("copied");
+        successMessage.classList.remove("visible");
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

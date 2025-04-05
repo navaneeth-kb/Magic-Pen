@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Secret Message</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --primary: #6e00ff;
+      --secondary: #00d1ff;
+      --dark: #0a0a14;
+      --light: #f0f0ff;
+      --accent: #ff00aa;
+    }
+    
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(135deg, var(--dark), #1a1a2e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      color: var(--light);
+    }
+    
+    .container {
+      background: rgba(10, 10, 20, 0.8);
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(110, 0, 255, 0.3);
+      text-align: center;
+      max-width: 90%;
+      width: 450px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(110, 0, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    h2 {
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      text-shadow: 0 0 10px rgba(0, 209, 255, 0.3);
+    }
+    
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      padding: 1rem;
+      background: rgba(20, 20, 40, 0.5);
+      border-radius: 8px;
+      border-left: 3px solid var(--accent);
+    }
+    
+    .timer {
+      color: var(--accent);
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin-top: 1rem;
+      text-shadow: 0 0 10px rgba(255, 0, 170, 0.3);
+    }
+    
+    .cyber-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 2px solid transparent;
+      border-image: linear-gradient(45deg, var(--primary), var(--accent)) 1;
+      animation: borderPulse 3s infinite;
+      pointer-events: none;
+    }
+    
+    @keyframes borderPulse {
+      0% { opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { opacity: 0.5; }
+    }
+    
+    .expired {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(10, 10, 20, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 100;
+    }
+    
+    .expired h2 {
+      color: #ff5555;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .expired-icon {
+      font-size: 4rem;
+      color: #ff5555;
+      margin-bottom: 1.5rem;
+      animation: shake 0.5s ease infinite;
+    }
+    
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-5px); }
+      75% { transform: translateX(5px); }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="cyber-border"></div>
+    <h2>Secret Message 🔒</h2>
+    <p>{{ message }}</p>
+    <div class="timer" id="countdown">Expires in 5:00</div>
+  </div>
+
+  <script>
+    const timeLeft = Number("{{ timeout }}");
+    const timer = document.getElementById("countdown");
+    let remaining = timeLeft;
+  
+    function updateTimer() {
+      const minutes = Math.floor(remaining / 60).toString().padStart(2, '0');
+      const seconds = (remaining % 60).toString().padStart(2, '0');
+      timer.textContent = `Expires in ${minutes}:${seconds}`;
+      
+      if (remaining <= 0) {
+        clearInterval(interval);
+        showExpiredMessage();
+      }
+      remaining--;
+    }
+    
+    function showExpiredMessage() {
+      const expiredDiv = document.createElement('div');
+      expiredDiv.className = 'expired';
+      expiredDiv.innerHTML = `
+        <div class="expired-icon">⌛</div>
+        <h2>Message expired</h2>
+        <p>The secret message has self-destructed</p>
+      `;
+      document.body.appendChild(expiredDiv);
+    }
+  
+    const interval = setInterval(updateTimer, 1000);
+  </script>
+</body>
+</html>
